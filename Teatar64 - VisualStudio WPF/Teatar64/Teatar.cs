@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Teatar64
 {
-    class Blagajnik : Uposlenik
+    class Teatar : Prostorija
+    {
+        public Double velicinaPozornice { get; set; }
+    }
+
+    class Sala : Prostorija
     {
     }
 }

@@ -55,6 +55,10 @@
     </ApplicationDefinition>
     <Compile Include="Blagajnik.cs" />
     <Compile Include="Direktor.cs" />
+    <Compile Include="Predstava.cs" />
+    <Compile Include="Producent.cs" />
+    <Compile Include="Prostorija.cs" />
+    <Compile Include="Teatar.cs" />
     <Compile Include="Uposlenik.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

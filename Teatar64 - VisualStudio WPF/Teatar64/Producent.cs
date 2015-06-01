@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Teatar64
 {
-    class Blagajnik : Uposlenik
+    class Producent : Uposlenik
     {
+        public void DodajPredstavu() { } //spojiti sa ViewModel-om
+        public void ObrisiPredstavu() { }
     }
 }

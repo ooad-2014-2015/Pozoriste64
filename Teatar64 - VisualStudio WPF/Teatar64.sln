@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teatar64", "Teatar64\Teatar64.csproj", "{F3C362D1-DB13-45CB-B06A-8B0A16CE2633}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{4750DEF9-0913-4A89-9128-44BDDD9FD9D7}"
+	ProjectSection(SolutionItems) = preProject
+		Teatar64\Blagajnik.cs = Teatar64\Blagajnik.cs
+		Teatar64\Direktor.cs = Teatar64\Direktor.cs
+		Teatar64\Osoba.cs = Teatar64\Osoba.cs
+		Teatar64\Predstava.cs = Teatar64\Predstava.cs
+		Teatar64\Producent.cs = Teatar64\Producent.cs
+		Teatar64\Prostorija.cs = Teatar64\Prostorija.cs
+		Teatar64\Teatar.cs = Teatar64\Teatar.cs
+		Teatar64\Uposlenik.cs = Teatar64\Uposlenik.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
