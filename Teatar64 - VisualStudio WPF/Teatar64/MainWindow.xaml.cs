@@ -24,5 +24,21 @@ namespace Teatar64
         {
             InitializeComponent();
         }
+
+        private void ponistiButton_Click(object sender, RoutedEventArgs e)
+        {
+            korisnickoImeTextBox.Text = "";
+            lozinkaTextBox.Password = "";
+        }
+
+        private void registrujButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (korisnickoImeTextBox.Text == "Delila" && lozinkaTextBox.Password == "password")
+            {
+                Blagajna prozor = new Blagajna();
+                prozor.Show();
+
+            }
+        }
     }
 }
