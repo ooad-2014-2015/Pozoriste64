@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Producent : Uposlenik
+    public class Producent : Uposlenik
     {
-        public Producent(String ime, String p, String datRodj, String datUposl) : base(ime, p, datRodj, datUposl) { }
+        public Producent(String ime, String p, String datRodj, String datUposl, Double pl, String sifra) : base(ime, p, datRodj, datUposl, pl, sifra) { }
         public void DodajPredstavu() { } //spojiti sa ViewModel-om
         public void ObrisiPredstavu() { }
     }

@@ -9,7 +9,7 @@ namespace Teatar64.Model
 {
 
 
-    class Predstava
+    public class Predstava
     {
 
         public String Naziv { get; set; }
@@ -18,7 +18,7 @@ namespace Teatar64.Model
         public String BrMjesta { get; set; }
         public String Reziser { get; set; }
         public String Vrijeme { get; set; }
-        public String Datum { get; set; }
+        public DateTime Datum { get; set; }
         //public List<Uposlenik> glumci { get; set; }
         public static List<String> VrstaPredstave;
 
@@ -28,7 +28,7 @@ namespace Teatar64.Model
             VrstaPredstave = baza.UcitajVrstePredstave();
         }
         
-        public Predstava(String n, String vrsta, String broj,  String s, String u, String time, String dat)
+        public Predstava(String n, String vrsta, String broj,  String s, String u, String time, DateTime dat)
         {
 
             Naziv = n;

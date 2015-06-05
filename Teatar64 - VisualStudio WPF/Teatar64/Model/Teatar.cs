@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Teatar : Prostorija
+    public class Teatar : Prostorija
     {
         public Double velicinaPozornice { get; set; }
         public Teatar(int broj, String naziv, double velicina) : base(broj, naziv)
@@ -15,7 +15,7 @@ namespace Teatar64.Model
         }
     }
 
-    class Sala : Prostorija
+    public class Sala : Prostorija
     {
         public Sala(int broj, string naziv) : base(broj, naziv) { }
     }

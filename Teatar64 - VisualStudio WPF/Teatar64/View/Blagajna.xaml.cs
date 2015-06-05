@@ -24,13 +24,19 @@ namespace Teatar64
     /// </summary>
     public partial class Blagajna : Window
     {
-        MainWindow login { get; set; }
-        List<Predstava> GridSource
+       public MainWindow login { get; set; }
+       private List<Predstava> _gridsource;
+        public List<Predstava> GridSource
         {
             get
             {
                 KameniTeatar64 baza = new KameniTeatar64();
-                return baza.UcitajPredstave();
+                _gridsource = baza.UcitajPredstave();
+                return _gridsource;
+            }
+            set
+            {
+                _gridsource = value;
             }
         }
         public Blagajna(MainWindow reg)
@@ -38,7 +44,11 @@ namespace Teatar64
             login = reg;
             InitializeComponent();
             UcitajPredstave();
-
+        }
+        private void UpdateGridSource()
+        {
+            KameniTeatar64 baza = new KameniTeatar64();
+            GridSource = baza.UcitajPredstave();
         }
 
         private void UcitajPredstave()
@@ -56,6 +66,15 @@ namespace Teatar64
         {
             this.Close();
         }
+        private String DajNaziv()
+        {
+            return GridSource.ElementAt(PredstaveDataGrid.SelectedIndex).Naziv;
+        }
+        private String DajDatum()
+        {
+            String datum = GridSource.ElementAt(PredstaveDataGrid.SelectedIndex).Datum.Year.ToString() + "-" + GridSource.ElementAt(PredstaveDataGrid.SelectedIndex).Datum.Month.ToString() + "-" + GridSource.ElementAt(PredstaveDataGrid.SelectedIndex).Datum.Day.ToString();
+            return datum;
+        }
 
         private void PotvrdiKupovinuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -65,14 +84,27 @@ namespace Teatar64
                 return;
             }
             KameniTeatar64 baza = new KameniTeatar64();
-            baza.UpdatePredstavu(PredstaveDataGrid.SelectedCells[0].ToString() , PredstaveDataGrid.SelectedCells[0].Item.ToString(), Convert.ToInt32(KolicinaTextBox.Text));
+            baza.UpdatePredstavu(DajNaziv() , DajDatum(), Convert.ToInt32(KolicinaTextBox.Text));
+            UpdateGridSource();
             UcitajPredstave();
+            OcistiUnos();
+        }
+        private void OcistiUnos()
+        {
+            PredstaveDataGrid.SelectedIndex = -1;
+            KolicinaTextBox.Text = "";
         }
 
         private void PonistiKupovinuButton_Click(object sender, RoutedEventArgs e)
         {
-            PredstaveDataGrid.SelectedIndex = -1;
-            KolicinaTextBox.Text = "";
+            OcistiUnos();
+        }
+
+        private void KakoKoristitiButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("1. Selektujte predstavu\n"+
+                "2. Unesite kolicinu (za povrat unesite negativnu vrijednost)\n"+
+                "3. Kliknite dugme Potvrdi");
         }
     }
 }

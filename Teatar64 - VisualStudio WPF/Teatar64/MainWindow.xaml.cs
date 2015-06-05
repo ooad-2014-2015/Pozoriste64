@@ -44,37 +44,41 @@ namespace Teatar64
         {
             KameniTeatar64 baza = new KameniTeatar64();
 
-            if(korisnickoImeTextBox.Text == "1" && lozinkaTextBox.Password == "1")
+            if (korisnickoImeTextBox.Text == "gost" && lozinkaTextBox.Password == "sifra")
             {
-                KreirajBazu();
+                FormaPosjetilac prozor = new FormaPosjetilac(this);
+                prozor.Show();
             }
 
-            int id = baza.LogIn(korisnickoImeTextBox.Text, lozinkaTextBox.Password);
-            if (id == 1)
+            else
             {
-                FormaDirektor prozor = new FormaDirektor(this);
-                prozor.Show();
-                this.OcistiPodatke();
-                this.Hide();
-            }
-            else if (id == 3)
-            {
-                FormaProducent prozor = new FormaProducent(this);
-                prozor.Show();
-                this.OcistiPodatke();
-                this.Hide();
-            }
-            else if (id == 4)
-            {
-                Blagajna prozor = new Blagajna(this);
-                prozor.Show();
-                this.OcistiPodatke();
-                this.Hide();
-            }
-            else if(id == -1)
-            {
-                MessageBox.Show("Korisnično ime ili šifra nije tačna.");
-                this.OcistiPodatke();
+                int id = baza.LogIn(korisnickoImeTextBox.Text, lozinkaTextBox.Password);
+                if (id == 1)
+                {
+                    FormaDirektor prozor = new FormaDirektor(this);
+                    prozor.Show();
+                    this.OcistiPodatke();
+                    this.Hide();
+                }
+                else if (id == 3)
+                {
+                    FormaProducent prozor = new FormaProducent(this);
+                    prozor.Show();
+                    this.OcistiPodatke();
+                    this.Hide();
+                }
+                else if (id == 4)
+                {
+                    Blagajna prozor = new Blagajna(this);
+                    prozor.Show();
+                    this.OcistiPodatke();
+                    this.Hide();
+                }
+                else if (id == -1)
+                {
+                    MessageBox.Show("Korisnično ime ili šifra nije tačna.");
+                    this.OcistiPodatke();
+                }
             }
         }
         public void KreirajBazu()

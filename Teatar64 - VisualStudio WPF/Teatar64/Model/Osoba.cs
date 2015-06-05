@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Osoba
+    public class Osoba
     {
-        private string ime { get; set; }
-        private string prezime { get; set; }
+        public string ime { get; set; }
+        public string prezime { get; set; }
         public Osoba(String i, String p)
         {
             ime = i;

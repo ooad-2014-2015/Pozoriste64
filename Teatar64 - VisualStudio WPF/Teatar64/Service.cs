@@ -1,24 +1,25 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 using System.Windows;
-using System.Windows.Controls;
+using System.Data;
 using Teatar64.Model;
 
-namespace Teatar64.Baza
+namespace Teatar64
 {
-    class KameniTeatar64
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in both code and config file together.
+    public class Service : IService
     {
         MySqlConnection dataConnection { get; set; }
         String username { get; set; }
         String password { get; set; }
         String dbName { get; set; }
 
-        private void Connect()
+        public void Connect()
         {
             username = "root";
             password = "";
@@ -28,7 +29,7 @@ namespace Teatar64.Baza
             dataConnection = new MySqlConnection(connectionString);
             dataConnection.Open();
         }
-        private void Disconnect()
+        public void Disconnect()
         {
             dataConnection.Close();
         }
@@ -39,7 +40,7 @@ namespace Teatar64.Baza
                 Connect();
 
                 MySqlCommand provjera = new MySqlCommand(
-                    "SELECT * FROM osoblje WHERE sifra='"+sifra+"';", dataConnection);
+                    "SELECT * FROM osoblje WHERE sifra='" + sifra + "';", dataConnection);
                 MySqlDataReader reader = provjera.ExecuteReader();
                 reader.Read();
 
@@ -58,7 +59,10 @@ namespace Teatar64.Baza
             }
             return -1;
         }
-
+        public void ObrisiProstoriju(Prostorija p)
+        {
+ 
+        }
         public List<String> UcitajSale()
         {
             List<String> lista = new List<String>();
@@ -66,29 +70,6 @@ namespace Teatar64.Baza
             {
                 Connect();
                 MySqlCommand ucitaj = new MySqlCommand("SELECT naziv FROM prostorije", dataConnection);
-                MySqlDataReader reader = ucitaj.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    lista.Add(reader.GetString("naziv"));
-                }
-                reader.Close();
-
-                Disconnect();
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return lista;
-        }
-        public List<String> UcitajRadnePozicije()
-        {
-            List<String> lista = new List<String>();
-            try
-            {
-                Connect();
-                MySqlCommand ucitaj = new MySqlCommand("SELECT naziv FROM spisakposlova", dataConnection);
                 MySqlDataReader reader = ucitaj.ExecuteReader();
 
                 while (reader.Read())
@@ -142,7 +123,7 @@ namespace Teatar64.Baza
                 MySqlDataReader reader = ucitaj.ExecuteReader();
                 while (reader.Read())
                 {
-                    String s = (string)((IDataRecord)reader)[0]; 
+                    String s = (string)((IDataRecord)reader)[0];
                     lista.Add(s);
                 }
 
@@ -158,7 +139,7 @@ namespace Teatar64.Baza
 
         public List<Predstava> UcitajPredstave()
         {
-            List< Predstava > lista = new List< Predstava >();
+            List<Predstava> lista = new List<Predstava>();
             try
             {
                 Connect();
@@ -169,7 +150,7 @@ namespace Teatar64.Baza
                 while (reader.Read())
                 {
                     lista.Add(new Predstava(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), Convert.ToDateTime(reader[6].ToString())));
-                    
+
                 }
 
                 reader.Close();
@@ -189,14 +170,14 @@ namespace Teatar64.Baza
                 Connect();
 
                 MySqlCommand ucitaj;
-                if(ime == "") ucitaj = new MySqlCommand("SELECT ime, prezime, datumRodj, datumUposlenja, plata, sifra FROM osoblje;", dataConnection);
+                if (ime == "") ucitaj = new MySqlCommand("SELECT ime, prezime, datumRodj, datumUposlenja, plata, sifra FROM osoblje;", dataConnection);
 
                 else ucitaj = new MySqlCommand("SELECT ime, prezime, datumRodj, datumUposlenja, plata, sifra FROM osoblje WHERE ime LIKE '%" + ime + "%' OR prezime LIKE '%" + ime + "%';", dataConnection);
                 MySqlDataReader reader = ucitaj.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    lista.Add(new Uposlenik(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), Convert.ToDouble(Convert.ToDecimal(reader[4].ToString())), reader[5].ToString()));
+                    lista.Add(new Uposlenik(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(),Convert.ToDouble(Convert.ToDecimal( reader[4].ToString())), reader[5].ToString()));
 
                 }
 
@@ -222,7 +203,7 @@ namespace Teatar64.Baza
             {
                 Connect();
                 MySqlCommand update = new MySqlCommand(
-                    "UPDATE predstavetermini SET br_sl = br_sl - "+kolicina+" WHERE id = "+id+";", dataConnection);
+                    "UPDATE predstavetermini SET br_sl = br_sl - " + kolicina + " WHERE id = " + id + ";", dataConnection);
                 update.ExecuteNonQuery();
 
                 Disconnect();
@@ -240,7 +221,7 @@ namespace Teatar64.Baza
                 Connect();
 
                 MySqlCommand provjera = new MySqlCommand(
-                    "SELECT t.vrijeme FROM predstavespisak pred, predstavetermini pt, termini t, prostorije p WHERE pt.predstava_id=pred.id AND pt.termin_id=t.id AND pred.prostorija_id=p.id AND p.naziv='"+prostorija+"' AND t.vrijeme='"+termin+"';", dataConnection);
+                    "SELECT t.vrijeme FROM predstavespisak pred, predstavetermini pt, termini t, prostorije p WHERE pt.predstava_id=pred.id AND pt.termin_id=t.id AND pred.prostorija_id=p.id AND p.naziv='" + prostorija + "' AND t.vrijeme='" + termin + "';", dataConnection);
                 MySqlDataReader reader = provjera.ExecuteReader();
 
                 if (reader.Read())
@@ -290,14 +271,14 @@ namespace Teatar64.Baza
                 Connect();
 
                 MySqlCommand upis = new MySqlCommand(
-                    "INSERT INTO predstavespisak (vrsta_id, producent_id, naziv, prostorija_id, reziser_id) VALUES ("+v+","+p+", '"+naziv+"', "+pr+", "+r+");", dataConnection);
+                    "INSERT INTO predstavespisak (vrsta_id, producent_id, naziv, prostorija_id, reziser_id) VALUES (" + v + "," + p + ", '" + naziv + "', " + pr + ", " + r + ");", dataConnection);
                 upis.ExecuteNonQuery();
 
                 upis = new MySqlCommand(
-                    "SELECT id from predstavespisak WHERE naziv= '"+naziv+"';", dataConnection);
+                    "SELECT id from predstavespisak WHERE naziv= '" + naziv + "';", dataConnection);
                 MySqlDataReader reader = upis.ExecuteReader();
 
-                if(reader.Read()) id = reader.GetInt32("id");
+                if (reader.Read()) id = reader.GetInt32("id");
 
                 reader.Close();
 
@@ -305,7 +286,7 @@ namespace Teatar64.Baza
                 for (int i = 0; i < 10; i++)
                 {
                     upis = new MySqlCommand(
-                        "INSERT INTO predstavetermini (predstava_id, datum, termin_id, br_sl) VALUES (" + id + ", '" + datum.Date.Year.ToString()+"-"+datum.Date.Month.ToString()+"-"+datum.Date.Day.ToString() + "', " + t + ", " + broj + ");", dataConnection);
+                        "INSERT INTO predstavetermini (predstava_id, datum, termin_id, br_sl) VALUES (" + id + ", '" + datum.Date.Year.ToString() + "-" + datum.Date.Month.ToString() + "-" + datum.Date.Day.ToString() + "', " + t + ", " + broj + ");", dataConnection);
                     upis.ExecuteNonQuery();
                     datum = datum.AddDays(1);
                 }
@@ -321,123 +302,64 @@ namespace Teatar64.Baza
             }
             return -1;
         }
-        public int UpisiUposlenika(String ime, String prezime, String datRodj, String datUposl,String pozicija, Double pl, String sif)
-        {
-            int rp = NadjiPozicijaID(pozicija);
-
-            if ( rp == -1)
-            {
-                MessageBox.Show("Radno mjesto nije pronadjeno u bazi.");
-                return -1;
-            }
-
-            int id = -1;
-            try
-            {
-                Connect();
-
-                MySqlCommand upis = new MySqlCommand(
-                    "INSERT INTO osoblje (ime, prezime, datumRodj, ovlastenje, sifra, datumUposlenja, plata) VALUES ('" + ime + "','" + prezime + "', '" +  datRodj + "', " + rp + ", '"+sif+"', '" + datUposl + "', "+pl+");", dataConnection);
-                upis.ExecuteNonQuery();
-
-                upis = new MySqlCommand(
-                    "SELECT id from osoblje WHERE ime= '" + ime + "' AND prezime ='"+prezime+"';", dataConnection);
-                MySqlDataReader reader = upis.ExecuteReader();
-
-                if (reader.Read()) id = reader.GetInt32("id");
-
-                reader.Close();
-
-                Disconnect();
-                MessageBox.Show("Uposlenik uspjesno dodan.");
-
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-                return -1;
-            }
-            return -1;
-        }
         public int UpisiProstoriju(Prostorija p)
         {
-            try {
-            Connect();
-            int id = 0;
-            if(p is Sala){
-                MySqlCommand upis = new MySqlCommand(
-                "INSERT INTO prostorije (tip, broj_mjesta, naziv) VALUES ( 'S', "+p.brojMjesta+
-                ", '"+p.nazivProstorije.ToString()+"');", dataConnection);
-                upis.ExecuteNonQuery();
-
-                upis = new MySqlCommand(
-                    "SELECT id FROM prostorije WHERE naziv = '" + p.nazivProstorije + "';", dataConnection);
-                MySqlDataReader reader = upis.ExecuteReader();
-                if(reader.Read()) id = reader.GetInt32("id");
-
-                reader.Close();
-
-                Disconnect();
-            }
-            if(p is Teatar)
+            try
             {
-                MySqlCommand upis = new MySqlCommand(
-                "INSERT INTO prostorije (tip, broj_mjesta, naziv, velicina) VALUES ('T', " + p.brojMjesta.ToString() +
-                ", '" + p.nazivProstorije + "', "+ (p as Teatar).velicinaPozornice +");", dataConnection);
-                upis.ExecuteNonQuery();
+                Connect();
+                int id = 0;
+                if (p is Sala)
+                {
+                    MySqlCommand upis = new MySqlCommand(
+                    "INSERT INTO prostorije (tip, broj_mjesta, naziv) VALUES ( 'S', " + p.brojMjesta +
+                    ", '" + p.nazivProstorije.ToString() + "');", dataConnection);
+                    upis.ExecuteNonQuery();
 
-                upis = new MySqlCommand(
-                    "SELECT id FROM prostorije WHERE naziv = '" + p.nazivProstorije + "';", dataConnection);
-                MySqlDataReader reader = upis.ExecuteReader();
+                    upis = new MySqlCommand(
+                        "SELECT id FROM prostorije WHERE naziv = '" + p.nazivProstorije + "';", dataConnection);
+                    MySqlDataReader reader = upis.ExecuteReader();
+                    if (reader.Read()) id = reader.GetInt32("id");
 
-                if(reader.Read()) id = reader.GetInt32("id");
+                    reader.Close();
 
-                reader.Close();
+                    Disconnect();
+                }
+                if (p is Teatar)
+                {
+                    MySqlCommand upis = new MySqlCommand(
+                    "INSERT INTO prostorije (tip, broj_mjesta, naziv, velicina) VALUES ('T', " + p.brojMjesta.ToString() +
+                    ", '" + p.nazivProstorije + "', " + (p as Teatar).velicinaPozornice + ");", dataConnection);
+                    upis.ExecuteNonQuery();
 
-                Disconnect();
-            }
-            MessageBox.Show("Uspjesno ste dodali prostoriju.");
-            return id;
+                    upis = new MySqlCommand(
+                        "SELECT id FROM prostorije WHERE naziv = '" + p.nazivProstorije + "';", dataConnection);
+                    MySqlDataReader reader = upis.ExecuteReader();
+
+                    if (reader.Read()) id = reader.GetInt32("id");
+
+                    reader.Close();
+
+                    Disconnect();
+                }
+                MessageBox.Show("Uspjesno ste dodali prostoriju.");
+                return id;
             }
             catch (MySqlException e)
             {
-                MessageBox.Show("Konekcija s bazom nije uspjela.\n"+e.Message);
+                MessageBox.Show("Konekcija s bazom nije uspjela.\n" + e.Message);
             }
             return 0;
-         }
-        private int NadjiUposlenikID(String imeprezime)
+        }
+        public int NadjiUposlenikID(String imeprezime)
         {
             int id = -1, space = imeprezime.IndexOf(" ");
-            String ime = imeprezime.Substring(0, space+1), prezime = imeprezime.Substring(space+1, imeprezime.Length - (space+1));
+            String ime = imeprezime.Substring(0, space + 1), prezime = imeprezime.Substring(space + 1, imeprezime.Length - (space + 1));
             try
             {
                 Connect();
 
                 MySqlCommand citaj = new MySqlCommand(
-                    "SELECT id FROM osoblje WHERE ime = '" + ime + "' AND prezime= '"+ prezime +"';", dataConnection);
-                MySqlDataReader reader = citaj.ExecuteReader();
-
-                if(reader.Read()) id = reader.GetInt32("id");
-
-                reader.Close();
-                Disconnect();
-
-            }
-            catch(MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return id;
-        }
-        private int NadjiPredstavaTerminID(String naziv, String datum)
-        {
-            int id = -1;
-            try
-            {
-                Connect();
-
-                MySqlCommand citaj = new MySqlCommand(
-                    "SELECT pt.id FROM predstavetermini pt, predstavespisak pred WHERE pt.predstava_id = pred.id AND pred.naziv= '" + naziv + "' AND pt.datum='"+datum+"';", dataConnection);
+                    "SELECT id FROM osoblje WHERE ime = '" + ime + "' AND prezime= '" + prezime + "';", dataConnection);
                 MySqlDataReader reader = citaj.ExecuteReader();
 
                 if (reader.Read()) id = reader.GetInt32("id");
@@ -452,7 +374,30 @@ namespace Teatar64.Baza
             }
             return id;
         }
-        private int NadjiProstorijaID(String naziv)
+        public int NadjiPredstavaTerminID(String naziv, String datum)
+        {
+            int id = -1;
+            try
+            {
+                Connect();
+
+                MySqlCommand citaj = new MySqlCommand(
+                    "SELECT pt.id FROM predstavetermini pt, predstavespisak pred WHERE pt.predstava_id = pred.id AND pred.naziv= '" + naziv + "' AND pt.datum='" + datum + "';", dataConnection);
+                MySqlDataReader reader = citaj.ExecuteReader();
+
+                if (reader.Read()) id = reader.GetInt32("id");
+
+                reader.Close();
+                Disconnect();
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return id;
+        }
+        public int NadjiProstorijaID(String naziv)
         {
             int id = -1;
             try
@@ -463,7 +408,7 @@ namespace Teatar64.Baza
                     "SELECT id FROM prostorije WHERE naziv = '" + naziv + "';", dataConnection);
                 MySqlDataReader reader = citaj.ExecuteReader();
 
-                if(reader.Read()) id = reader.GetInt32("id");
+                if (reader.Read()) id = reader.GetInt32("id");
 
                 reader.Close();
                 Disconnect();
@@ -475,7 +420,7 @@ namespace Teatar64.Baza
             }
             return id;
         }
-        private int NadjiProstorijaKapacitet(String naziv)
+        public int NadjiProstorijaKapacitet(String naziv)
         {
             int br = -1;
             try
@@ -486,7 +431,7 @@ namespace Teatar64.Baza
                     "SELECT broj_mjesta FROM prostorije WHERE naziv = '" + naziv + "';", dataConnection);
                 MySqlDataReader reader = citaj.ExecuteReader();
 
-                if(reader.Read())   br = reader.GetInt32("broj_mjesta");
+                if (reader.Read()) br = reader.GetInt32("broj_mjesta");
 
                 reader.Close();
                 Disconnect();
@@ -498,7 +443,7 @@ namespace Teatar64.Baza
             }
             return br;
         }
-        private int NadjiVrstaID(String naziv)
+        public int NadjiVrstaID(String naziv)
         {
             int id = -1;
             try
@@ -507,52 +452,6 @@ namespace Teatar64.Baza
 
                 MySqlCommand citaj = new MySqlCommand(
                     "SELECT id FROM vrstepredstava WHERE naziv = '" + naziv + "';", dataConnection);
-                MySqlDataReader reader = citaj.ExecuteReader();
-
-                if(reader.Read())  id = reader.GetInt32("id");
-
-                reader.Close();
-                Disconnect();
-
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return id;
-        }
-        private int NadjiTerminID(String vrijeme)
-        {
-            int id = -1;
-            try
-            {
-                Connect();
-
-                MySqlCommand citaj = new MySqlCommand(
-                    "SELECT id FROM termini WHERE vrijeme = '" + vrijeme + "';", dataConnection);
-                MySqlDataReader reader = citaj.ExecuteReader();
-
-                if(reader.Read()) id = reader.GetInt32("id");
-
-                reader.Close();
-                Disconnect();
-
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return id;
-        }
-        private int NadjiPozicijaID(String naziv)
-        {
-            int id = -1;
-            try
-            {
-                Connect();
-
-                MySqlCommand citaj = new MySqlCommand(
-                    "SELECT id FROM spisakposlova WHERE naziv = '" + naziv + "';", dataConnection);
                 MySqlDataReader reader = citaj.ExecuteReader();
 
                 if (reader.Read()) id = reader.GetInt32("id");
@@ -567,5 +466,28 @@ namespace Teatar64.Baza
             }
             return id;
         }
-     }
+        public int NadjiTerminID(String vrijeme)
+        {
+            int id = -1;
+            try
+            {
+                Connect();
+
+                MySqlCommand citaj = new MySqlCommand(
+                    "SELECT id FROM termini WHERE vrijeme = '" + vrijeme + "';", dataConnection);
+                MySqlDataReader reader = citaj.ExecuteReader();
+
+                if (reader.Read()) id = reader.GetInt32("id");
+
+                reader.Close();
+                Disconnect();
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return id;
+        }
+    }
 }

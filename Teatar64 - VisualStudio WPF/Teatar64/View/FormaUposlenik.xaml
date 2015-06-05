@@ -1,0 +1,19 @@
+﻿<Window x:Class="Teatar64.View.FormaUposlenik"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Unos uposlenika" Height="269.791" Width="271">
+    <Grid>
+        <Label Content="Ime:" HorizontalAlignment="Left" Height="26" Margin="25,23,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Plata" HorizontalAlignment="Left" Height="26" Margin="25,116,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Radno mjesto" HorizontalAlignment="Left" Height="26" Margin="25,85,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label Content="Prezime:" HorizontalAlignment="Left" Height="26" Margin="25,54,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="ImeTextBox" HorizontalAlignment="Left" Height="26" Margin="122,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <TextBox x:Name="PlataTextBox" HorizontalAlignment="Left" Height="26" Margin="122,116,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <TextBox x:Name="PrezimeTextBox" HorizontalAlignment="Left" Height="26" Margin="122,54,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="110"/>
+        <Button x:Name="PonistiButton" Content="Ponisti" HorizontalAlignment="Left" Margin="178,209,0,0" VerticalAlignment="Top" Width="75" Click="PonistiButton_Click" />
+        <Button x:Name="DodajButton" Content="Dodaj" HorizontalAlignment="Left" Margin="85,209,0,0" VerticalAlignment="Top" Width="75" Click="DodajButton_Click" />
+        <ComboBox x:Name="RadnoMjestoComboBox" HorizontalAlignment="Left" Height="26" Margin="122,85,0,0" VerticalAlignment="Top" Width="110"/>
+        <Label Content="Datum rođenja:" HorizontalAlignment="Left" Margin="25,147,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DatumRodjenjaPicker" HorizontalAlignment="Left" Margin="122,149,0,0" IsDropDownOpen="False" VerticalAlignment="Top" FirstDayOfWeek="Monday"/>
+    </Grid>
+</Window>

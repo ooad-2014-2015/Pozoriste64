@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Prostorija
+    public class Prostorija : INotifyPropertyChanged
     {
         public int brojMjesta { get; set; }
         public String nazivProstorije { get; set; }
@@ -16,5 +17,14 @@ namespace Teatar64.Model
             brojMjesta = broj;
             nazivProstorije = naziv;
         }
+        protected void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

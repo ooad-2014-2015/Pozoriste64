@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Blagajnik : Uposlenik
+    public class Blagajnik : Uposlenik
     {
-        public Blagajnik(String ime, String p, String datRodj, String datUposl) : base(ime, p, datRodj, datUposl) { }
+        public Blagajnik(String ime, String p, String datRodj, String datUposl, Double pl, String sifra) : base(ime, p, datRodj, datUposl, pl, sifra) { }
 
     }
 }

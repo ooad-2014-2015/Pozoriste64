@@ -11,7 +11,7 @@
             </MenuItem>
             <MenuItem x:Name="PomocButton" Height="18" Width="50" Header="Pomoć">
                 <MenuItem x:Name="ONamaButton" Header="O Nama"/>
-                <MenuItem x:Name="KakoKoristitiButton" Header="Kako Koristiti"/>
+                <MenuItem x:Name="KakoKoristitiButton" Header="Kako Koristiti" Click="KakoKoristitiButton_Click"/>
             </MenuItem>
         </Menu>
         <StatusBar x:Name="StatusBarBlagajna" HorizontalAlignment="Left" Height="33" Margin="2,426,0,0" VerticalAlignment="Top" Width="590"/>

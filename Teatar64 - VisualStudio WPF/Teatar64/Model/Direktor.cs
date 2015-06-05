@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Teatar64.Model
 {
-    class Direktor
+    public class Direktor
     {
         public DateTime DatumRodjenja { get; set; }
         public DateTime getDatumRodjenja() { return DatumRodjenja; }
