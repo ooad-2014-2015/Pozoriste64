@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="App7.Page3"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App7"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Rectangle Fill="Beige" HorizontalAlignment="Left" Height="747" Margin="-34,-45,-49,-62" Stroke="Black" VerticalAlignment="Top" Width="483"/>
+        <TextBlock HorizontalAlignment="Left" Height="112" Margin="10,55,0,0" TextWrapping="Wrap" Text="Komentar:" VerticalAlignment="Top" Width="380" RequestedTheme="Light" FontSize="36"/>
+        <TextBox HorizontalAlignment="Left" Height="188" Margin="10,221,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="380" InputScope="AlphanumericFullWidth" TextChanged="TextBox_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="116,138,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Textblock1" HorizontalAlignment="Left" Height="112" Margin="0,414,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="380" RequestedTheme="Light" FontSize="36"/>
+
+    </Grid>
+</Page>
