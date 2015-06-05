@@ -159,17 +159,46 @@ namespace Teatar64.Baza
         public List<Predstava> UcitajPredstave()
         {
             List< Predstava > lista = new List< Predstava >();
+            int audicija = NadjiVrstaID("Audicija");
+            int radionica = NadjiVrstaID("Radionica");
             try
             {
                 Connect();
 
                 MySqlCommand ucitaj = new MySqlCommand(
-                    "SELECT pred.naziv, vp.naziv,p.naziv, pt.br_sl, t.vrijeme, o.ime, pt.datum FROM osoblje o, vrstepredstava vp, predstavespisak pred, predstavetermini pt, termini t, prostorije p WHERE pt.predstava_id=pred.id AND pt.termin_id=t.id AND pred.prostorija_id=p.id AND vp.id = pred.vrsta_id AND pred.producent_id = o.id AND pt.datum >= CURDATE() ORDER BY pt.datum;", dataConnection);
+                    "SELECT pred.naziv, vp.naziv,p.naziv, pt.br_sl, t.vrijeme, o.ime, pt.datum FROM osoblje o, vrstepredstava vp, predstavespisak pred, predstavetermini pt, termini t, prostorije p WHERE pt.predstava_id=pred.id AND pt.termin_id=t.id AND pred.prostorija_id=p.id AND vp.id = pred.vrsta_id AND pred.producent_id = o.id AND pred.vrsta_id <> "+audicija+" AND pred.vrsta_id <> "+radionica+" AND pt.datum >= CURDATE() ORDER BY pt.datum;", dataConnection);
                 MySqlDataReader reader = ucitaj.ExecuteReader();
                 while (reader.Read())
                 {
                     lista.Add(new Predstava(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString(), Convert.ToDateTime(reader[6].ToString())));
                     
+                }
+
+                reader.Close();
+                Disconnect();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return lista;
+        }
+        public List<String> UcitajSpisakPredstava()
+        {
+            List<String> lista = new List<String>();
+            int audicija = NadjiVrstaID("Audicija");
+            int radionica = NadjiVrstaID("Radionica");
+            try
+            {
+                Connect();
+
+                MySqlCommand ucitaj = new MySqlCommand(
+                    "SELECT naziv FROM predstavespisak pred WHERE vrsta_id <> "+audicija+" AND vrsta_id <> "+radionica+";", dataConnection);
+                MySqlDataReader reader = ucitaj.ExecuteReader();
+                while (reader.Read())
+                {
+                    lista.Add(reader.GetString("naziv"));
+
                 }
 
                 reader.Close();
@@ -197,6 +226,33 @@ namespace Teatar64.Baza
                 while (reader.Read())
                 {
                     lista.Add(new Uposlenik(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), Convert.ToDouble(Convert.ToDecimal(reader[4].ToString())), reader[5].ToString()));
+
+                }
+
+                reader.Close();
+                Disconnect();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return lista;
+        }
+        public List<Recenzija> UcitajRecenzije()
+        {
+            List<Recenzija> lista = new List<Recenzija>();
+            try
+            {
+                Connect();
+
+                MySqlCommand ucitaj = new MySqlCommand(
+                    "SELECT pred.naziv, rec.komentar, rec.prijedlog, rec.ocjena FROM predstavespisak pred, recenzije rec WHERE pred.id = rec.predstava_id;", dataConnection);
+
+                MySqlDataReader reader = ucitaj.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lista.Add(new Recenzija(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString()));
 
                 }
 
@@ -350,6 +406,43 @@ namespace Teatar64.Baza
 
                 Disconnect();
                 MessageBox.Show("Uposlenik uspjesno dodan.");
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+                return -1;
+            }
+            return -1;
+        }
+        public int UpisiRecenziju(String pred, String komentar, String prijedlog, Int32 ocjena)
+        {
+            int predstava = NadjiPredstavaID(pred);
+            if (predstava == -1)
+            {
+                MessageBox.Show("Predstava nije pronadjena u bazi.");
+                return -1;
+            }
+
+            int id = -1;
+            try
+            {
+                Connect();
+
+                MySqlCommand upis = new MySqlCommand(
+                    "INSERT INTO recenzije (predstava_id, komentar, prijedlog, ocjena) VALUES (" + predstava + ",'" + komentar + "', '" + prijedlog + "', " + ocjena + ");", dataConnection);
+                upis.ExecuteNonQuery();
+
+                upis = new MySqlCommand(
+                    "SELECT id from recenzije WHERE komentar= '" + komentar + "';", dataConnection);
+                MySqlDataReader reader = upis.ExecuteReader();
+
+                if (reader.Read()) id = reader.GetInt32("id");
+
+                reader.Close();
+
+                Disconnect();
+                MessageBox.Show("Recenzija uspjesno dodana.");
 
             }
             catch (MySqlException e)
@@ -533,6 +626,29 @@ namespace Teatar64.Baza
                 MySqlDataReader reader = citaj.ExecuteReader();
 
                 if(reader.Read()) id = reader.GetInt32("id");
+
+                reader.Close();
+                Disconnect();
+
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return id;
+        }
+        private int NadjiPredstavaID(String naziv)
+        {
+            int id = -1;
+            try
+            {
+                Connect();
+
+                MySqlCommand citaj = new MySqlCommand(
+                    "SELECT id FROM predstavespisak WHERE naziv = '" + naziv + "';", dataConnection);
+                MySqlDataReader reader = citaj.ExecuteReader();
+
+                if (reader.Read()) id = reader.GetInt32("id");
 
                 reader.Close();
                 Disconnect();

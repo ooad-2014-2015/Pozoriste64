@@ -65,6 +65,7 @@
     <Compile Include="Model\Predstava.cs" />
     <Compile Include="Model\Producent.cs" />
     <Compile Include="Model\Prostorija.cs" />
+    <Compile Include="Model\Recenzija.cs" />
     <Compile Include="Model\Teatar.cs" />
     <Compile Include="Model\Uposlenik.cs" />
     <Compile Include="Service.cs" />

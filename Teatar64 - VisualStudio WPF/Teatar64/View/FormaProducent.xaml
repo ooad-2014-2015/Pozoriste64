@@ -48,6 +48,14 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="RecenzijeDataGrid" ItemsSource="{Binding RecenzijaSource}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="216" Margin="0,10,0,0" VerticalAlignment="Top" Width="376">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="*"/>
+                            <DataGridTextColumn Header="Komentar" Binding="{Binding Komentar}" Width="*"/>
+                            <DataGridTextColumn Header="Prijedlog" Binding="{Binding Prijedlog}" Width="*"/>
+                            <DataGridTextColumn Header="Ocjena" Binding="{Binding Ocjena}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Radionice" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="70" Margin="-2,-2,-13,0">

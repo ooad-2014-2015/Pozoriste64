@@ -37,6 +37,20 @@ namespace Teatar64.View
                 _pretragasource = value;
             }
         }
+        private List<Recenzija> _recenzijasource;
+        public List<Recenzija> RecenzijaSource
+        {
+            get
+            {
+                KameniTeatar64 baza = new KameniTeatar64();
+                _recenzijasource = baza.UcitajRecenzije();
+                return _recenzijasource;
+            }
+            set
+            {
+                _recenzijasource = value;
+            }
+        }
         public List<Uposlenik> DajPretragaSource()
         {
             this.Dispatcher.BeginInvoke(new Action(()=>{
@@ -49,6 +63,7 @@ namespace Teatar64.View
             login = l;
             InitializeComponent();
             UcitajUposlenike();
+            UcitajRecenzije();
         }
         private void UpdatePretragaSource()
         {
@@ -63,6 +78,10 @@ namespace Teatar64.View
                 PretragaSource = baza.UcitajUposlenike(pretragaTextBox.Text);
             }));
             //PretragaSource = baza.UcitajUposlenike(tekst);
+        }
+        private void UcitajRecenzije()
+        {
+            RecenzijeDataGrid.ItemsSource = RecenzijaSource;
         }
         private void UcitajUposlenike()
         {

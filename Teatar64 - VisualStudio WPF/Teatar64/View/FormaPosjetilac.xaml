@@ -60,18 +60,18 @@
                 <Grid Background="#FFE5E5E5" Margin="0,2,0,-2">
                     <Label Content="Predstava" HorizontalAlignment="Left" Height="24" Margin="20,26,0,0" VerticalAlignment="Top" Width="70" RenderTransformOrigin="0.327,0.5"/>
                     <Label Content="Komentar" HorizontalAlignment="Left" Height="24" Margin="20,81,0,0" VerticalAlignment="Top" Width="70"/>
-                    <TextBox HorizontalAlignment="Left" Height="70" Margin="139,67,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="160"/>
-                    <ComboBox HorizontalAlignment="Left" Height="24" Margin="140,26,0,0" VerticalAlignment="Top" Width="159"/>
+                    <TextBox x:Name="KomentarTextBox" HorizontalAlignment="Left" Height="70" Margin="139,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+                    <ComboBox x:Name="PredstaveComboBox" ItemsSource="{Binding RecenzijeSource}" HorizontalAlignment="Left" Height="24" Margin="140,26,0,0" VerticalAlignment="Top" Width="159"/>
                     <Label Content="Ocjena" HorizontalAlignment="Left" Height="24" Margin="348,26,0,0" VerticalAlignment="Top" Width="70"/>
                     <Label Content="Prijedlog predstave" HorizontalAlignment="Left" Height="24" Margin="10,156,0,0" VerticalAlignment="Top" Width="124" RenderTransformOrigin="0.46,-0.417"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="139,160,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="160"/>
-                    <Button Content="Sacuvaj" HorizontalAlignment="Left" Height="31" Margin="285,198,0,0" VerticalAlignment="Top" Width="72"/>
-                    <Button Content="Otkazi" HorizontalAlignment="Left" Height="31" Margin="377,198,0,0" VerticalAlignment="Top" Width="72"/>
-                    <RadioButton Content="5" HorizontalAlignment="Left" Height="20" Margin="357,60,0,0" VerticalAlignment="Top" Width="92"/>
-                    <RadioButton Content="4" HorizontalAlignment="Left" Height="20" Margin="357,85,0,0" VerticalAlignment="Top" Width="92"/>
-                    <RadioButton Content="3" HorizontalAlignment="Left" Height="20" Margin="357,110,0,0" VerticalAlignment="Top" Width="92"/>
-                    <RadioButton Content="2" HorizontalAlignment="Left" Height="20" Margin="357,135,0,0" VerticalAlignment="Top" Width="92"/>
-                    <RadioButton Content="1" HorizontalAlignment="Left" Height="20" Margin="357,160,0,0" VerticalAlignment="Top" Width="92"/>
+                    <TextBox x:Name="PrijedlogTextBox" HorizontalAlignment="Left" Height="23" Margin="139,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+                    <Button x:Name="SacuvajButton" Content="Sacuvaj" HorizontalAlignment="Left" Height="31" Margin="285,198,0,0" VerticalAlignment="Top" Width="72" Click="SacuvajButton_Click"/>
+                    <Button x:Name="OtkaziButton" Content="Otkazi" HorizontalAlignment="Left" Height="31" Margin="377,198,0,0" VerticalAlignment="Top" Width="72" Click="Button_Click_1"/>
+                    <RadioButton x:Name="PetRadioButton" Content="5" HorizontalAlignment="Left" Height="20" Margin="357,60,0,0" VerticalAlignment="Top" Width="92"/>
+                    <RadioButton x:Name="CetiriRadioButton" Content="4" HorizontalAlignment="Left" Height="20" Margin="357,85,0,0" VerticalAlignment="Top" Width="92"/>
+                    <RadioButton x:Name="TriRadioButton" Content="3" HorizontalAlignment="Left" Height="20" Margin="357,110,0,0" VerticalAlignment="Top" Width="92"/>
+                    <RadioButton x:Name="DvaRadioButton" Content="2" HorizontalAlignment="Left" Height="20" Margin="357,135,0,0" VerticalAlignment="Top" Width="92"/>
+                    <RadioButton x:Name="JedanRadioButton" Content="1" HorizontalAlignment="Left" Height="20" Margin="357,160,0,0" VerticalAlignment="Top" Width="92"/>
                 </Grid>
             </TabItem>
         </TabControl>

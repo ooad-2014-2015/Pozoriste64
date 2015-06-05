@@ -17,7 +17,16 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Ocjene i recenzije">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="RecenzijeDataGrid" ItemsSource="{Binding RecenzijaSource}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="481" Margin="0,10,0,0" VerticalAlignment="Top" Width="576">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Komentar" Binding="{Binding Komentar}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Prijedlog" Binding="{Binding Prijedlog}" Width="*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Ocjena" Binding="{Binding Ocjena}" Width="*"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="Uposlenici">
                 <Grid Background="#FFE5E5E5">
