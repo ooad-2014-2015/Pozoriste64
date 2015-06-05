@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Teatar64
+namespace Teatar64.View
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for FormaOstaliUposlenici.xaml
     /// </summary>
-    public partial class Blagajna : Window
+    public partial class FormaOstaliUposlenici : Window
     {
-        public Blagajna()
+        public FormaOstaliUposlenici()
         {
             InitializeComponent();
         }

@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -53,15 +54,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Blagajnik.cs" />
-    <Compile Include="Direktor.cs" />
-    <Compile Include="Predstava.cs" />
-    <Compile Include="Producent.cs" />
-    <Compile Include="Prostorija.cs" />
-    <Compile Include="Teatar.cs" />
-    <Compile Include="Uposlenik.cs" />
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="Baza\KameniTeatar64.cs" />
+    <Compile Include="Model\Blagajnik.cs" />
+    <Compile Include="Model\Direktor.cs" />
+    <Compile Include="Model\Predstava.cs" />
+    <Compile Include="Model\Producent.cs" />
+    <Compile Include="Model\Prostorija.cs" />
+    <Compile Include="Model\Teatar.cs" />
+    <Compile Include="Model\Uposlenik.cs" />
+    <Compile Include="ViewModel\ProstorijaViewModel.cs" />
+    <Compile Include="View\FormaDirektor.xaml.cs">
+      <DependentUpon>FormaDirektor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormaOstaliUposlenici.xaml.cs" />
+    <Compile Include="View\FormaPosjetilac.xaml.cs">
+      <DependentUpon>FormaPosjetilac.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormaPredstave1.xaml.cs">
+      <DependentUpon>FormaPredstave1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormaProducent.xaml.cs">
+      <DependentUpon>FormaProducent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormaProstorija.xaml.cs">
+      <DependentUpon>FormaProstorija.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Blagajna.xaml.cs">
+      <DependentUpon>Blagajna.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -75,13 +94,37 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Window1.xaml">
+    <Page Include="View\FormaDirektor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FormaOstaliUposlenici.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FormaPosjetilac.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FormaPredstave1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FormaProducent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FormaProstorija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Blagajna.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Osoba.cs" />
+    <Compile Include="Model\Osoba.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,6 +151,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

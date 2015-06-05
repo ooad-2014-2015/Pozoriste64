@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Teatar64
+namespace Teatar64.Model
 {
     class Direktor
     {

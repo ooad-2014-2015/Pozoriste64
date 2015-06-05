@@ -1,12 +1,12 @@
-﻿<Window x:Class="Teatar64.MainWindow"
+﻿<Window x:Name="RegistracijaForma" x:Class="Teatar64.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Registracija" Height="206" Width="374">
     <Grid Margin="0,0,2,-11">
         <Label Content="Korisničko ime:" HorizontalAlignment="Left" Margin="29,37,0,0" VerticalAlignment="Top" Width="100"/>
         <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="29,86,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="lozinkaTextBox" HorizontalAlignment="Left" Margin="160,86,0,0" VerticalAlignment="Top" Width="160"/>
         <TextBox x:Name="korisnickoImeTextBox" HorizontalAlignment="Left" Height="23" Margin="160,41,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.5,0.478"/>
+        <PasswordBox x:Name="lozinkaTextBox" HorizontalAlignment="Left" Margin="160,86,0,0" VerticalAlignment="Top" Width="160"/>
         <Button x:Name="registrujButton" Content="Registruj" Height="28" Margin="160,126,0,0" VerticalAlignment="Top" Width="77" Click="registrujButton_Click" HorizontalAlignment="Left"/>
         <Button x:Name="ponistiButton" Content="Poništi" HorizontalAlignment="Left" Height="28" Margin="243,126,0,0" VerticalAlignment="Top" Width="77" Click="ponistiButton_Click"/>
 

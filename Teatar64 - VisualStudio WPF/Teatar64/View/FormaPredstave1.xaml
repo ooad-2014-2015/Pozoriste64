@@ -1,0 +1,24 @@
+﻿<Window x:Name="Predstava" x:Class="Teatar64.View.FormaPredstave"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Predstava" Height="322.388" Width="534.328">
+    <Grid x:Name="ProducenttextBox">
+        <TextBox x:Name="ReziserTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="126,70,0,0"/>
+        <ComboBox x:Name="VrstaComboBox"  ItemsSource="{Binding Path=UcitajCombo}" HorizontalAlignment="Left" Margin="126,31,0,0" VerticalAlignment="Top" Width="120" Height="21"/>
+        <Label Content="Vrsta predstave" HorizontalAlignment="Left" Margin="23,31,0,0" VerticalAlignment="Top" Width="98" Height="34"/>
+        <Label Content="Reziser:" HorizontalAlignment="Left" Margin="23,70,0,0" VerticalAlignment="Top" Width="98" Height="34"/>
+        <Label Content="Prostorija:" HorizontalAlignment="Left" Margin="278,70,0,0" VerticalAlignment="Top" Width="98" Height="34"/>
+        <Button x:Name="DodajButton" Content="Dodaj" HorizontalAlignment="Left" Height="32" Margin="295,238,0,0" VerticalAlignment="Top" Width="81" Click="DodajButton_Click"/>
+        <Button x:Name="OtkaziButton" Content="Otkaži" HorizontalAlignment="Left" Height="32" Margin="415,238,0,0" VerticalAlignment="Top" Width="81"/>
+        <DatePicker x:Name="Datum_premijere" HorizontalAlignment="Left" Margin="432,115,0,0" VerticalAlignment="Top" FirstDayOfWeek="Monday" IsDropDownOpen="False" Text="Datum premijere" AllowDrop="True" Width="33"/>
+        <Label Content="Datum premijere:" HorizontalAlignment="Left" Margin="278,109,0,0" VerticalAlignment="Top" Width="98" Height="34" RenderTransformOrigin="0.481,2.245"/>
+        <Label Content="Naziv predstave:" HorizontalAlignment="Left" Margin="278,31,0,0" VerticalAlignment="Top" Width="98" Height="34" RenderTransformOrigin="0.481,2.245"/>
+        <TextBox x:Name="NazivtextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="376,35,-11,0"/>
+        <ComboBox x:Name="ProstorijaComboBox" HorizontalAlignment="Left" Margin="376,72,0,0" VerticalAlignment="Top" Width="120" Height="21" SelectionChanged="ProstorijaComboBox_SelectionChanged"/>
+        <Label Content="Producent:" HorizontalAlignment="Left" Margin="23,109,0,0" VerticalAlignment="Top" Width="98" Height="34"/>
+        <TextBox x:Name="ProducentTextBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="126,109,0,0"/>
+        <Label x:Name="terminLabel" Content="Vrijeme:" HorizontalAlignment="Left" Margin="278,145,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="TerminiComboBox" HorizontalAlignment="Left" Margin="376,149,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="TerminiComboBox_SelectionChanged"/>
+
+    </Grid>
+</Window>
